@@ -3,32 +3,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>Balance</title>
-<link href="./page.css" rel="stylesheet" type="text/css">
+<!--<link href="./page.css" rel="stylesheet" type="text/css">-->
+<link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.css">
 
-<style type="text/css">
-.TableA tbody td  {
-	font-weight:normal;
-	white-space:nowrap;
-	text-align:center;
-}
 
-.bold {
-	font-weight:bold;
-}
+<!--<style type="text/css">
+		.TableA tbody td  {
+			font-weight:normal;
+			white-space:nowrap;
+			text-align:center;
+		}
 
-body {
-	background-image: url(images/bgline.jpg);
-	background-repeat: repeat-x;
-}
+		.bold {
+			font-weight:bold;
+		}
 
-.lastestBet{
-	background-color:#CCFFFF;
-}
+		body {
+			background-image: url(images/bgline.jpg);
+			background-repeat: repeat-x;
+		}
 
-.normalBet{
-	background-color:#FFFFFF;
-}
-</style>
+		.lastestBet{
+			background-color:#CCFFFF;
+		}
+
+		.normalBet{
+			background-color:#FFFFFF;
+		}
+</style>-->
 <script language="javascript" type="text/javascript">
 
 
@@ -107,24 +109,24 @@ function updateBetList()
 </head>
 
 <body onload="updateBetList();">
-<div id="mainData"><table rules="all" id="dgReport" width="100%" border="0" cellspacing="0" cellpadding="2" class="TableA">
+<div class="container"><table class="table table-striped">
   <thead>
   <tr>
-    <th>เวลาแทง</th>
-    <th>ประเภท</th>
-    <th>หมายเลข</th>
-    <th>จำนวน</th>
-    <th>ส่วนลด</th>
-    <th>สถานะ</th>
+    <th bgcolor="#598234">เวลาแทง</th>
+    <th bgcolor="#598234">ประเภท</th>
+    <th bgcolor="#598234">หมายเลข</th>
+    <th bgcolor="#598234">จำนวน</th>
+    <th bgcolor="#598234">ส่วนลด</th>
+    <th bgcolor="#598234">สถานะ</th>
     </tr>
   </thead>
 
   <tbody><tr>
-    <td colspan="2" bgcolor="#CCCCCC"><a href="http://sbo991.com/betlist-export.php"><img src="./print_16.gif" width="16" height="16" align="absmiddle" border="0">พิมพ์ใบรายการแทง</a></td>
-    <td bgcolor="#FFCCFF" style="font-weight:bold;color:#009; background:#FFC;">0</td>
-    <td bgcolor="#FFCCFF" style="font-weight:bold;">0</td>
-    <td bgcolor="#FFCCFF" style="font-weight:bold;">0</td>
-    <td bgcolor="#CCCCCC"><a href="http://sbo991.com/betlist_mini.php#" onclick="updateBetList();"><img src="./refresh_icon.gif" alt="refresh" width="17" height="19" border="0"></a></td>
+    <td colspan="2" bgcolor="#b3b3b3"><a href="http://sbo991.com/betlist-export.php"><img src="./print_16.gif" width="16" height="16" align="absmiddle" border="0">พิมพ์ใบรายการแทง</a></td>
+    <td bgcolor="#AEBD38" style="font-weight:bold;color:#009;">0</td>
+    <td bgcolor="#F18D9E" style="font-weight:bold;">0</td>
+    <td bgcolor="#F18D9E" style="font-weight:bold;">0</td>
+    <td bgcolor="#b3b3b3"><a href="http://sbo991.com/betlist_mini.php#" onclick="updateBetList();"><img src="./refresh_icon.gif" alt="refresh" width="17" height="19" border="0"></a></td>
   </tr>
 </tbody></table></div>
  

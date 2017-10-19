@@ -1,0 +1,60 @@
+BODY {
+	MARGIN: 0px
+}
+.bbMenu {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+.bbMenu A:link {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+.bbMenu A:hover {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #ff0000; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+.bbMenu A:visited {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+.bbMenuBar {
+	FONT-WEIGHT: normal; FONT-SIZE: 11px; BACKGROUND: url(../images1/head_bg_submenu.gif); COLOR: #000000; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+.bbMenuBar A:link {
+	FONT-WEIGHT: normal; FONT-SIZE: 11px; BACKGROUND: url(../images1/head_bg_submenu.gif); COLOR: #000000; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+.bbMenuBar A:hover {
+	FONT-WEIGHT: normal; FONT-SIZE: 11px; BACKGROUND: url(../images1/head_bg_submenu.gif); COLOR: #ff0000; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+.bbMenuBar A:visited {
+	FONT-WEIGHT: normal; FONT-SIZE: 11px; BACKGROUND: url(../images1/head_bg_submenu.gif); COLOR: #000000; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+.text12_white {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; PADDING-BOTTOM: 3px; COLOR: #ffffff; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+.text12_black_bold {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #000000; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+.text12_black {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; COLOR: #000000; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+.text12_black_2 {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+.text12_red_bold {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ff0000; PADDING-TOP: 2px; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+.text12_blue_bold {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #000066; PADDING-TOP: 2px; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+.status_red {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; COLOR: #ce0018; PADDING-TOP: 2px; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+.status_green {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; COLOR: #257f17; PADDING-TOP: 2px; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+.status_gray {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; COLOR: #3a5160; PADDING-TOP: 2px; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+.status_black {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; COLOR: #000000; PADDING-TOP: 2px; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+.text11_black {
+	FONT-WEIGHT: normal; FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}

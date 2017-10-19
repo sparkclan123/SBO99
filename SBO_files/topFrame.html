@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0030)http://sbo991.com/topFrame.php -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>:: LTNOLINE99.COM ::</title>
+<style type="text/css">
+
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+}
+
+</style>
+<link rel="stylesheet" type="text/css" href="./style.css">
+
+<style type="text/css">
+body {
+	background-image: url(images/bghead.gif);
+	background-repeat: repeat-x;
+}
+</style>
+<script type="text/javascript">
+			/***********************************************
+			* Local Time script- © Dynamic Drive (http://www.dynamicdrive.com)
+			* This notice MUST stay intact for legal use
+			* Visit http://www.dynamicdrive.com/ for this script and 100s more.
+			***********************************************/
+
+			var weekdaystxt=["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสฯ", "ศุกร์", "เสาร์"]
+			var monthstxt=["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"]
+			
+			function showLocalTime(container, servermode, offsetMinutes, displayversion){
+			if (!document.getElementById || !document.getElementById(container)) return
+			this.container=document.getElementById(container)
+			this.displayversion=displayversion
+			var servertimestring=(servermode=="server-php")? 'October 19, 2017 13:52:23' : (servermode=="server-ssi")? '<!--#config timefmt="%B %d, %Y %H:%M:%S"--><!--#echo var="DATE_LOCAL" -->' : '11/25/2009 11:06:23 AM'
+			this.localtime=this.serverdate=new Date(servertimestring)
+			this.localtime.setTime(this.serverdate.getTime()+offsetMinutes*60*1000) //add user offset to server time
+			this.updateTime()
+			this.updateContainer()
+			}
+
+			showLocalTime.prototype.updateTime=function(){
+			var thisobj=this
+			this.localtime.setSeconds(this.localtime.getSeconds()+1)
+			setTimeout(function(){thisobj.updateTime()}, 1000) //update time every second
+			}
+/*
+			showLocalTime.prototype.updateContainer=function(){
+			var thisobj=this
+			if (this.displayversion=="long")
+			this.container.innerHTML=this.localtime.toLocaleString()
+			else{
+			var hour=this.localtime.getHours()
+			var minutes=this.localtime.getMinutes()
+			var seconds=this.localtime.getSeconds()
+			var ampm=(hour>=12)? "PM" : "AM"
+			var dayofweek=weekdaystxt[this.localtime.getDay()]
+			this.container.innerHTML=formatField(hour, 1)+":"+formatField(minutes)+":"+formatField(seconds)+" "+ampm+" ("+dayofweek+")"
+			}
+			*/
+			showLocalTime.prototype.updateContainer=function(){
+			var thisobj=this
+			if (this.displayversion=="long")
+			this.container.innerHTML=this.localtime.toLocaleString()
+			else{
+			var monthofyear = monthstxt[this.localtime.getMonth()]
+			var day = this.localtime.getDate();
+			var year = this.localtime.getYear();
+			var hour=this.localtime.getHours();
+			var ampm=(hour>=12)? "pm" : "am"
+
+			var minutes=this.localtime.getMinutes()
+			var seconds=this.localtime.getSeconds()
+			
+			var dayofweek=weekdaystxt[this.localtime.getDay()]
+			//this.container.innerHTML=formatField(hour, 1)+":"+formatField(minutes)+":"+formatField(seconds)+" "+ampm+" ("+dayofweek+")"
+			this.container.innerHTML= 'วัน'+dayofweek + "ที่ " + day + " " + monthofyear + " " + (year+543) + " / เวลา " + hour + ":"+formatField(minutes)+":"+formatField(seconds)+" "
+			}
+			
+			
+			setTimeout(function(){thisobj.updateContainer()}, 1000) //update container every second
+			}
+
+			function formatField(num, isHour){
+			if (typeof isHour!="undefined"){ //if this is the hour field
+			var hour=(num>12)? num-12 : num
+			return (hour==0)? 12 : hour
+			}
+			return (num<=9)? "0"+num : num//if this is minute or sec field
+			}
+
+		</script>
+<script type="text/javascript">
+var starting = 5;
+var c=0;
+var t;
+var timer_is_on=0;
+function resetTimer()
+{
+	c=	30;
+}
+
+function timedCount()
+{
+	//document.getElementById('txt').value=c;
+	if( c > 0 ){
+		c=c-1;
+	}else{
+		c=	30;
+		document.form1.submit();
+	}
+
+	t=setTimeout("timedCount()",1000);
+}
+
+function doTimer()
+{
+if (!timer_is_on)
+  {
+  timer_is_on=1;
+  timedCount();
+  }
+}
+</script>
+</head>
+
+<body onload="doTimer()">
+<table width="100%" height="0%" border="0" cellpadding="0" cellspacing="0">
+  <tbody>
+  <tr>
+    <td valign="top"><img src="./logosbo99.png" width="310" height="95"></td>
+    <td valign="top" height="72">
+      <table cellspacing="0" cellpadding="0" width="100%" border="0">
+        <tbody>
+        <tr>
+          <td width="682" height="21">
+            <table cellspacing="0" cellpadding="0" width="100%" border="0">
+              <tbody>
+              <tr>
+                <th width="353"><div id="localtime" style="text-align:left; font-size:12px; font-weight:normal;"><span id="timecontainer">วันพฤหัสฯที่ 19 ตุลาคม 660 / เวลา 13:53:52 </span>
+                    <script type="text/javascript">
+						new showLocalTime("timecontainer", "server-php", 0, "short")
+					</script>
+                    </div></th>
+                <th width="313" align="middle" nowrap="" class="text12_black"><nobr><span class="text12_black">ยินดีต้อนรับ
+                      <strong>Z0POR</strong>&nbsp;/&nbsp;<a href="http://sbo991.com/logout.php?doLogout=true" target="_parent" class="left">ออกจากระบบ</a></span></nobr></th>
+                <td width="17" align="right" nowrap="" class="text12_black">&nbsp;</td>
+              </tr></tbody></table></td></tr>
+        <tr>
+          <td valign="top" align="right" width="682" height="51"><table width="682" border="0" cellpadding="0" cellspacing="0">
+            <tbody><tr>
+              <td><div align="right"><a href="http://sbo991.com/type2.php" target="mainFrame"><img src="./menu_01.png" alt="" width="142" height="74" border="0"></a></div></td>
+              <td><a href="http://sbo991.com/betlist.php" target="mainFrame"><img src="./menu_02.png" alt="" width="116" height="74" border="0"></a></td>
+              <td><a href="http://sbo991.com/reportbetlist.php" target="mainFrame"><img src="./menu_03.png" alt="" width="124" height="74" border="0"></a></td>
+              <td><a href="http://sbo991.com/report_result.php" target="mainFrame"><img src="./menu_04.png" alt="" width="120" height="74" border="0"></a></td>
+              <td><a href="http://sbo991.com/profiles.php" target="mainFrame"><img src="./menu_05.png" width="180" height="74" border="0"></a></td>
+            </tr>
+          </tbody></table></td>
+        </tr></tbody></table></td>
+    <td style="BACKGROUND-REPEAT: no-repeat" width="100%" height="72"><span class="text_black" style="BACKGROUND-REPEAT: no-repeat">
+			<img src="./ban.png" width="100%" height="95" border="0">
+	</span></td></tr>
+  </tbody></table>
+<form method="post" action="http://sbo991.com/getMsg.php" target="postDataFrame" name="form1" id="form1">
+</form>
+<iframe class="hiddenFrame" name="postDataFrame" src="./saved_resource.html"></iframe>
+
+<iframe id="onuserframe" style="WIDTH: 0px; HEIGHT: 0px" name="onuserframe" src="./saved_resource(1).html" frameborder="0"></iframe>
+</body></html>

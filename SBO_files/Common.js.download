@@ -1,0 +1,151 @@
+﻿/*===========================================================COMMON FUNCTIONS===========================================================*/
+function trim(str)  {
+    str = str.replace(/^\s+/, '');    
+    str = str.replace(/\s+$/, '');
+    return str;
+}
+
+function openWindow(theURL,winName,features) { //v2.0
+	var whandle = window.open(theURL,winName,features);
+	whandle.focus();
+}
+
+function addCommas(nStr) {
+    //nStr = nStr.toFixed(2);
+	nStr += '';
+	x = nStr.split('.');
+	x1 = x[0];
+	x2 = x.length > 1 ? '.' + x[1] : '';
+	var rgx = /(\d+)(\d{3})/;
+	while (rgx.test(x1)) {
+		x1 = x1.replace(rgx, '$1' + ',' + '$2');
+	}
+	return x1 + x2;
+}
+
+function removeCommas(aNum) 
+{
+    //remove any commas
+    aNum=aNum.replace(/,/g,"");
+    return aNum;
+}
+
+function removeSpaces(str) {
+    //remove any spaces
+    str=str.replace(/\s/g,"");
+    return str;    
+}
+
+
+function numSort(a,b){
+    return ((a-0) - (b-0)); //sorted numerically ascending
+}
+
+
+function populateListMinMax(ls, minVal, maxVal, step, digit) {
+    ls.options.length=0;
+    var length = Math.round((maxVal-minVal)/step);
+    var opt=0;
+    //new Option(text, value, defaultSelected, selected);  defselec and selec are optional
+
+    for (var i=0; i<= length; i++) {
+        opt = (step * i + minVal).toFixed(digit);
+        ls.options[i] = new Option(opt, opt);
+    }
+}
+
+function enterKeyFocus()
+{
+	var pK = document.all? window.event.keyCode:e.which;
+	if(event.keyCode==13) 
+	{
+		if( document.all )
+			window.event.keyCode = 9;
+		else
+			e.which = 9;	
+	}
+}
+
+function Set_Cookie( name, value, expires, path, domain, secure )
+{
+	// set time, it's in milliseconds
+	var today = new Date();
+	today.setTime( today.getTime() );
+	
+	/*
+	if the expires variable is set, make the correct
+	expires time, the current script below will set
+	it for x number of days, to make it for hours,
+	delete * 24, for minutes, delete * 60 * 24
+	*/
+	if ( expires )
+	{
+		expires = expires * 1000 * 60 * 60 * 24;
+	}
+	var expires_date = new Date( today.getTime() + (expires) );
+	
+	document.cookie = name + "=" +escape( value ) +
+	( ( expires ) ? ";expires=" + expires_date.toGMTString() : "" ) +
+	( ( path ) ? ";path=" + path : "" ) +
+	( ( domain ) ? ";domain=" + domain : "" ) +
+	( ( secure ) ? ";secure" : "" );
+}
+/*=====================================================COMMON VALIDATION FUNCTIONS=====================================================*/
+function isEmpty(str) {
+    if (str) return trim(str).length == 0 ? true : false; 
+	else return true; 
+}
+
+function isNumber(num) {
+	if (num) return /^\d+$/.test(num);
+	else return false;
+}
+
+
+function isPositiveInt(num) {
+	if (num && /^\d+$/.test(num)) return Number(num) > 0;
+	else return false;
+}
+
+function isEmail(eml) {
+    var filter = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return filter.test(eml);
+}
+
+
+function isNumeric(val) {
+   var nonNumeric  = /[a-z|A-Z|`|~|!|@|#|$|%|^|&|*|"|'|(|)|_|+|=|-|||<|>|?|/|\\|||[|]|{|}]/g;
+   return (!val.match(nonNumeric))               
+}
+
+
+//Only allow digit for the user input
+function blockNonNumbers(e) {
+		var key;
+		var isCtrl = false;
+		var keychar;
+		var reg;
+			
+		if(window.event) {
+			key = e.keyCode;
+			isCtrl = window.event.ctrlKey
+		}
+		else if(e.which) {
+			key = e.which;
+			isCtrl = e.ctrlKey;
+		}
+		
+		if (isNaN(key)) return true;
+		
+		keychar = String.fromCharCode(key);
+		
+		// check for backspace or delete, or if Ctrl was pressed
+		if (key == 8 || isCtrl) {
+			return true;
+		}
+	
+		reg = /[\d ]/;
+		
+		return reg.test(keychar);
+}
+

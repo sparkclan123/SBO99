@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0031)http://sbo991.com/leftFrame.php -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link href="./page.css" type="text/css" rel="stylesheet">
+<link href="./style(1).css" type="text/css" rel="stylesheet">
+<script language="javascript">
+function b(txt)
+{
+	str = txt.split("|");
+	document.getElementById('lotDate').innerHTML = str[0];
+	document.getElementById('credit').innerHTML = str[1];
+	document.getElementById('outstanding').innerHTML = str[2];
+	document.getElementById('balance').innerHTML = str[3];
+	document.getElementById('bet_credit').innerHTML = str[4];	
+	if( str[5] != '-none-' )
+		document.getElementById('comm').innerHTML = str[5];	
+}
+
+function s(txt)
+{
+	var t1 = document.getElementById('t1').innerHTML;
+	var t2 = document.getElementById('t2').innerHTML;
+	var itm=txt.split("@@");
+	
+	var sb = ['<table cellSpacing="1" cellPadding="0" width="99%" align="center" bgColor="#ffffff">'];
+	
+	for(var i=1; i < (itm.length); i++)
+	{
+		str = itm[i].split("|");
+		strT1 = t1;
+		strT1 = strT1.replace("{lotName}", str[0]);
+		sb.push(strT1);
+		
+		for(var j=1; j< (str.length) ; j++)
+		{
+			strT2 = t2;
+			strT2 = strT2.replace("{numberBet}", str[j]);
+			sb.push(strT2);
+		}
+	}
+	
+	sb.push("</table>");
+	output = sb.join('');
+	document.getElementById('closebet').innerHTML = output;
+	
+}
+
+function updateCloseBet(gc)
+{
+	//betListArea.updateTbl(val);
+	document.getElementById('getComm').value = gc;
+	document.form2.submit();
+	document.getElementById('getComm').value = '0';
+	
+}	
+
+	</script>
+<script type="text/javascript">
+var starting = 5;
+var c=30;
+var t;
+var timer_is_on=0;
+function resetTimer()
+{
+	c=	30;
+}
+
+function timedCount()
+{
+	//document.getElementById('txt').value=c;
+	if( c > 0 ){
+		c=c-1;
+	}else{
+		c=	30;
+		updateCloseBet();
+	}
+
+	t=setTimeout("timedCount()",1000);
+}
+
+function doTimer()
+{
+if (!timer_is_on)
+  {
+  timer_is_on=1;
+  timedCount();
+  updateCloseBet(1);
+  }
+}
+</script>
+<meta content="MSHTML 6.00.2900.5764" name="GENERATOR">
+<style type="text/css">
+
+.style1 {color: #FFFFFF}
+body {
+	background-image: url(images/bgline.jpg);
+	background-repeat: repeat-x;
+}
+
+</style>
+</head>
+<body onload="doTimer();">
+<table cellspacing="0" cellpadding="0" width="220" border="0">
+  <tbody>
+  <tr>
+    <td valign="top" align="middle" height="3"></td></tr>
+  <tr>
+    <td align="middle" valign="top">
+      <table cellspacing="0" cellpadding="0" width="212" align="center" border="0">
+        <tbody>
+        <tr>
+          <td>
+            <table cellspacing="0" cellpadding="0" width="100%" border="0">
+              <tbody>
+              <tr class="text12_black_2">
+                <td width="14" nowrap="">&nbsp;</td>
+                <th align="middle">รายงานบัญชี </th>
+                <td width="14" nowrap="">&nbsp;</td>
+              </tr></tbody></table></td></tr>
+        <tr>
+          <td>
+            <table cellspacing="0" cellpadding="0" width="100%" border="0">
+              <tbody>
+              <tr>
+                <td width="7">&nbsp;</td>
+                <td bgcolor="#f2f4fd">
+                  <table cellspacing="1" cellpadding="0" width="99%" align="center" bgcolor="#ffffff">
+                    <tbody>
+                      <tr class="text12_black_bold" align="middle" bgcolor="#f4d4eb" height="18">
+                        <td align="right" bgcolor="#2871eb" style="PADDING-RIGHT: 4px"><span class="style1">งวดที่</span></td>
+                        <td align="right" bgcolor="#2871eb" id="div_credit" style="PADDING-RIGHT: 4px"><span class="style1" id="lotDate">16/10/2017</span></td>
+                        </tr>
+                      <tr class="text12_black_bold" align="middle" bgcolor="#f4d4eb" height="18">
+                        <td width="52%" align="right" bgcolor="#2871eb" style="PADDING-RIGHT: 4px"><span class="style1">เครดิตตั้งต้น</span></td>
+                        <td width="50%" align="right" bgcolor="#2871eb" id="div_credit" style="PADDING-RIGHT: 4px"><span class="style1" id="credit">2,000</span></td>
+                        </tr>
+                      <tr class="text12_black" onmouseover="this.bgColor=&#39;#CDD1E9&#39;" onmouseout="this.bgColor=&#39;#DFE2F1&#39;" align="middle" bgcolor="#DFE2F1" height="18">
+                        <td style="PADDING-RIGHT: 4px" align="right" bgcolor="#C6FFFF">ยอดพนัน</td>
+                        <td id="div_outstanding_total" style="PADDING-RIGHT: 4px" align="right" bgcolor="#C6FFFF"><span id="outstanding">0</span></td>
+                        </tr>
+                      <tr class="text12_black" onmouseover="this.bgColor=&#39;#CDD1E9&#39;" onmouseout="this.bgColor=&#39;#F1F2F9&#39;" align="middle" bgcolor="#f1f2f9" height="18">
+                        <td style="PADDING-RIGHT: 4px" align="right" bgcolor="#C6FFFF">ค่าคอม</td>
+                        <td id="div_cash" style="PADDING-RIGHT: 4px" align="right" bgcolor="#C6FFFF"><span id="comm">0</span></td>
+                        </tr>
+                      <tr class="text12_black" onmouseover="this.bgColor=&#39;#CDD1E9&#39;" onmouseout="this.bgColor=&#39;#F1F2F9&#39;" align="middle" bgcolor="#f1f2f9" height="18">
+                        <td style="PADDING-RIGHT: 4px" align="right" bgcolor="#C6FFFF">ยอดได้-เสีย</td>
+                        <td id="div_cash" style="PADDING-RIGHT: 4px" align="right" bgcolor="#C6FFFF"><span id="balance"><span>0</span></span></td>
+                        </tr>                        
+                      <tr class="text12_black" align="middle" bgcolor="#def1ee" height="18">
+                        <td align="right" bgcolor="#C6FFFF" style="PADDING-RIGHT: 4px">คงเหลือ</td>
+                        <td align="right" bgcolor="#C6FFFF" id="div_cash" style="PADDING-RIGHT: 4px"><span id="bet_credit">2,000</span></td>
+                      </tr></tbody></table></td>
+                <td width="7">&nbsp;</td>
+              </tr>
+            </tbody></table></td></tr></tbody></table></td></tr>
+  <tr>
+    <td align="middle" valign="top"><table cellspacing="0" cellpadding="0" width="212" align="center" border="0">
+      <tbody>
+        <tr>
+          <td><table cellspacing="0" cellpadding="0" width="100%" border="0">
+            <tbody>
+              <tr class="text12_black_2">
+                <td width="14" nowrap="">&nbsp;</td>
+                <th align="middle">หมายเลขปิดรับ <a href="http://sbo991.com/leftFrame.php#"><img src="./refresh_icon.gif" alt="รีเฟรส" width="16" height="16" border="0" onclick="updateCloseBet(1);"></a></th>
+                <td width="14" nowrap="">&nbsp;</td>
+              </tr>
+            </tbody>
+          </table></td>
+        </tr>
+        <tr>
+          <td><table cellspacing="0" cellpadding="0" width="100%" border="0">
+            <tbody>
+              <tr>
+                <td width="7">&nbsp;</td>
+                <td bgcolor="#f2f4fd">
+                <div id="closebet"><table cellspacing="1" cellpadding="0" width="99%" align="center" bgcolor="#ffffff"></table></div></td>
+                <td width="7">&nbsp;</td>
+              </tr>
+              </tbody>
+          </table></td>
+        </tr>
+      </tbody>
+  </table></td></tr></tbody></table> 
+  
+<table id="t1" style="display:none">
+    <tbody><tr class="text12_black_bold" align="middle" bordercolor="#336666" bgcolor="#336666" height="18"> 	
+    	<td width="100%" align="center" bgcolor="#FF80C0" style="padding-right: 4px;"><span class="style1">&nbsp;{lotName}&nbsp;</span></td>
+    </tr>
+</tbody></table>    
+
+<table id="t2" style="display:none">
+    <tbody><tr class="text12_black" onmouseover="this.bgColor=&#39;#CDD1E9&#39;" onmouseout="this.bgColor=&#39;#FFD9D9&#39;" bgcolor="#FFD9D9" align="middle" height="18">
+      <td align="center" style="padding-right: 4px">&nbsp;{numberBet}&nbsp;</td>
+    </tr>
+</tbody></table>     
+  <form method="post" action="http://sbo991.com/leftFrame-data.php" target="postDataFrame" name="form2" id="form2">
+  <input id="getComm" name="getComm" type="hidden" value="0">
+</form>
+<iframe style="width:0px; height:0px;" name="postDataFrame" src="./saved_resource(2).html"></iframe>                                     
+
+</body></html>

@@ -1,0 +1,142 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.bbMenu{	font-family: Verdana;
+	font-size: 11px;
+	font-weight: bold;
+	color: #000000;	
+	text-decoration:none;
+}
+.bbMenu a:link {	font-family: Verdana;
+	font-size: 11px;
+	font-weight: bold;
+	color: #000000;	
+	text-decoration:none;
+}
+.bbMenu a:hover{	font-family: Verdana;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FFFFFF;	
+	text-decoration:none;
+}
+.bbMenu a:visited {	font-family: Verdana;
+	font-size: 11px;
+	font-weight: bold;
+	color: #000000;	
+	text-decoration:none;
+}
+.bbMenuBar {	font-family: Verdana;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;	
+	text-decoration:none;
+	background: url(../images1/head_bg_submenu.gif);
+}
+.bbMenuBar a:link{	font-family: Verdana;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;	
+	text-decoration:none;
+	background: url(../images1/head_bg_submenu.gif);
+}
+.bbMenuBar a:hover{	font-family: Verdana;
+	font-size: 11px;
+	font-weight: normal;
+	color: #ff0000;	
+	text-decoration:none;
+	background: url(../images1/head_bg_submenu.gif);
+}
+.bbMenuBar a:visited{	font-family: Verdana;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;	
+	text-decoration:none;
+	background: url(../images1/head_bg_submenu.gif);
+}
+.text12_white {	font-family: Verdana;
+	font-size: 12px;
+	font-weight: bold;
+	color: #ffffff;	
+	text-decoration:none;
+	padding-bottom: 3px;
+}
+.text12_black_bold {	font-family: Verdana;
+	font-size: 12px;
+	font-weight: bold;
+	color: #000000;	
+	text-decoration:none;
+}
+.text12_black {	font-family: Verdana;
+	font-size: 12px;
+	font-weight: normal;
+	color: #000000;	
+	text-decoration:none;
+}
+.text14_black {	font-family: Verdana;
+	font-size: 14px;
+	font-weight: bold;
+	color: #000000;	
+	text-decoration:none;
+}
+.text12_black_2 {	font-family: Verdana;
+	font-size: 11px;
+	font-weight: bold;
+	color: #000000;	
+	text-decoration:none;
+}
+.text12_red_bold {	font-family: Verdana;
+	font-size: 12px;
+	font-weight: bold;
+	color: #ff0000;	
+	text-decoration:none;
+	padding-top: 2px;
+}
+.text12_blue_bold {	font-family: Verdana;
+	font-size: 12px;
+	font-weight: bold;
+	color: #000066;	
+	text-decoration:none;
+	padding-top: 2px;
+}
+.status_red{	font-family: Verdana;
+	font-size: 12px;
+	font-weight: normal;
+	color: #CE0018;	
+	text-decoration:none;
+	padding-top: 2px;
+}
+.status_green{	font-family: Verdana;
+	font-size: 12px;
+	font-weight: normal;
+	color: #257F17;	
+	text-decoration:none;
+	padding-top: 2px;
+}
+.status_gray{	font-family: Verdana;
+	font-size: 12px;
+	font-weight: normal;
+	color: #3A5160;	
+	text-decoration:none;
+	padding-top: 2px;
+}
+
+.status_black{	font-family: Verdana;
+	font-size: 12px;
+	font-weight: normal;
+	color: #000000;	
+	text-decoration:none;
+	padding-top: 2px;
+}
+
+.text11_black {	font-family: Verdana;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;	
+	text-decoration:none;
+}

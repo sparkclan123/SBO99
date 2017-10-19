@@ -1,0 +1,171 @@
+body {
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+/*	
+	background-color: #ff9702;
+	background-image: url(../images/PageBackground.gif);
+	background-repeat: repeat-x;
+*/	
+}
+.TableA{
+	border: 1px solid #000000;
+	background-color: #FFFFFF;
+	font-family:Tahoma;
+	font-size:12px;
+	border-collapse:collapse;
+}
+.TableA caption{
+	background-color:#69F;
+	height:30px;
+	line-height:30px;
+	font-size:14px;
+	font-weight:700;
+}
+.TableA thead th{
+	BACKGROUND-IMAGE: url(../images/right_bg_orange.gif);
+	text-align:center;
+	font-weight:700;
+	background-color:#336666;
+	border: 1px solid #FFFFFF;
+	color:#000000;
+	font-size:12px;
+}
+.TableA tbody td{
+	border: 1px solid #CCCCCC;
+	font-weight:700;
+}
+.TableA tfoot td{
+	font-weight:700;
+	border-top-width: 3px;
+	border-top-style: double;
+	border-top-color: #000000;
+}
+
+.FormA{
+	border: 1px solid #000000;
+	background-color: #FFFFFF;
+	font-family:Tahoma;
+	font-size:12px;
+	border-collapse:collapse;
+}
+.FormA caption{
+	background-color:#69F;
+	height:30px;
+	line-height:30px;
+	font-size:14px;
+	font-weight:700;
+}
+.FormA th{
+	text-align:right;
+	font-weight:700;
+	border: 1px solid #CCCCCC;
+	color:#990000;
+	padding-right:5px;
+}
+.FormA td{
+	height:24px;
+	border: 1px solid #CCCCCC;
+	font-weight:700;
+	padding-left:5px;
+}
+
+
+.TROdd{
+}
+.TREven{
+}
+.Open{
+	background-color:#FFFFFF;
+}
+.Closed{
+	background-color:#d3d3d3;
+}
+.Positive{
+	color:#0000FF;
+	white-space:nowrap;
+}
+.Negative{
+	color:#FF0000;
+	white-space:nowrap;
+}
+
+.Notes{
+	color:#FFFFFF;
+	line-height:24px;
+	font-weight: 700;
+}
+
+/* for Betlist */
+.BetlistPlayer{
+	color:#FF0000;
+}
+.BetlistBanker{
+	color:#FF9900;
+}
+.BetlistTie{
+	color:#009900;
+}
+.BetlistOdds{
+	font-style:italic;
+	font-weight:700;
+	color:#0066FF;
+}
+.BetlistComm{
+	color:#999999;
+	font-size:12px;
+}
+/* for Betlist */
+
+.GameOpen{
+	color:#0033FF;
+}
+.GameClose{
+	color:#999999;
+}
+
+/* Member Mgmt */
+.open{
+	background-color:#FFFFFF;
+}
+.closed{
+	background-color:#d3d3d3;
+}
+
+.statusYes{
+	color:#000;
+}
+
+.statusNo{
+	color:#F00;
+}
+
+.bgTrue{
+	background-color:#0F0;
+}
+
+.bgFalse{
+	background-color:#F00;
+}
+
+.maxInput{
+	color:#999;
+}
+
+/* Used with crosshairs.js */
+.hoverHilight {
+	background-color: #ffffc0;
+	cursor: pointer;
+}
+
+.activeCellHilight {
+	background-color: #c0dbff;
+	color: blue;
+}
+
+.win {
+	color:#0C0;
+}
+
+.loss {
+	color:#C00;
+}

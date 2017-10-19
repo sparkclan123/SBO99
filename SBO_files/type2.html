@@ -1,0 +1,1048 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0027)http://sbo991.com/type2.php -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>placebet</title>
+
+<link href="./style(1).css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="./style.css">
+<link rel="stylesheet" type="text/css" href="./jquery-ui.css">
+<script src="./jquery.min.js.download"></script>
+<script src="./jquery-ui.min.js.download"></script>
+
+<style>
+INPUT.text {
+	BACKGROUND: #ffffff
+}
+.style2 {color: #000000}
+.style3 {color: #FFFFFF}
+.copynum { font-weight:normal; }
+td.select_line{
+	border-left:medium #F00 solid;
+}
+
+label{
+	font-size:10px !important;
+}
+</style>
+
+<meta content="MSHTML 6.00.2900.5764" name="GENERATOR">
+<style type="text/css">
+input
+{
+	text-align:center;
+}
+input[type="text"]:disabled
+{
+	background-color:#BBBBBB;
+}
+body {
+	background-image: url(images/bgline.jpg);
+	background-repeat: repeat-x;
+}
+
+div.accepted{
+	background:url(images/agt_action_success.png) left no-repeat;
+}
+
+div.rejected{
+	background:url(images/agt_action_fail1.png) left no-repeat;
+}
+
+.accepted input{
+	border:#00dd00 thin solid;
+}
+
+.rejected input{
+	border:#dd0000 thin solid;
+}
+
+input.text{
+	width:55px;
+}
+</style>
+<script type="text/javascript" src="./Common.js.download"></script>
+
+<script language="javascript" type="text/javascript">
+function setMarquee(txt)
+{
+	document.getElementById('txtMarquee').innerHTML = txt;
+}
+function getAvailableBet( obj )
+{
+	/*
+	if( obj.value != '' && !isNumber(obj.value)  )
+	{
+		alert('กรุณาใส่เฉพาะตัวเลขไม่เกิน 3 หลักเท่านั้น !');
+		document.getElementById(obj.id).select();
+		return false;
+	}
+	*/
+	
+	if( obj.value != '' && document.getElementById('chkCalc').checked==true )
+	{
+		document.getElementById('numberbet_disp').innerHTML = obj.value;		
+		document.getElementById('stakeup_disp').innerHTML = "<img src='./images/ajax-loader.gif' border='0' />";
+		document.getElementById('stakedown_disp').innerHTML = "<img src='./images/ajax-loader.gif' border='0' />";
+		if( obj.value.length > 1 )
+			document.getElementById('staketode_disp').innerHTML = "<img src='./images/ajax-loader.gif' border='0' />";
+		
+		xajax_getAvailableBet( obj.id, obj.value);
+	}
+	
+}
+
+function getAvailableBet19( obj )
+{
+	if( obj.value != '' )
+	{
+		document.getElementById('numberbet19_disp').innerHTML = obj.value;		
+		document.getElementById('stakeup19_disp').innerHTML = "<img src='./images/ajax-loader.gif' border='0' />";
+		document.getElementById('stakedown19_disp').innerHTML = "<img src='./images/ajax-loader.gif' border='0' />";
+		
+		xajax_getAvailableBet19( obj.id, obj.value);
+	}
+	
+}
+
+function clicksubmit( )
+{
+	document.getElementById('btnSave').value = 'รอสักครู่...';
+	document.getElementById('btnSave').disabled = true;
+	xajax_doPlaceBet(xajax.getFormValues("form1"));	
+}
+
+function resetForm()
+{
+	set_current_line(1);
+	document.getElementById('form1').reset();	
+	//betListArea.location.reload();
+	betListArea.updateBetList();
+	parent.parent.leftFrame.updateCloseBet(1);
+//	parent.parent.leftFrame.location.reload();
+//	LockNumberArea.location.reload();
+}
+
+
+function redirectToLogout()
+{
+	location.href='logout.php';	
+}
+
+function disCol( id, status ){
+	var lastrow = $("#bet-table tbody tr").length;	
+	for(i=1; i<=lastrow-1;i++)
+		document.getElementById(id+'_'+i).disabled = !status;	
+}
+
+
+
+</script>
+
+<script>
+//***************************
+//
+// 
+//
+//*****************************
+
+var lastval0 = '';
+var lastval1 = '';
+var lastval2 = '';
+var lastval3 = '';
+var is_flip = false;
+var betnum = '';
+var arrNum = new Array();
+var current_line = 1;
+
+function keyPress(obj, id, evt) {
+	
+    evt = evt || window.event;
+    var code = evt.keyCode || evt.which;
+
+    // enter = 13, tab = 9
+    // space = 32,  + = 43
+	/*
+	stakeup_
+	stakedow
+	staketod
+	*/
+
+	
+    
+    if (code == 13 || code == 9) { // press enter or tab
+		set_current_line(id);
+		nextNode(obj, id);
+    }
+	else
+	{
+		switch( (obj.id).substr( 0, 7) )
+		{
+			case 'stakeup':
+				lastval1 = '';
+			case 'stakedo':
+				lastval2 = '';
+			case 'staketo':
+				lastval3 = '';
+		}	
+		set_current_line(id);	
+	}
+
+    if (code >= 48 && code <=57) 
+		return true;  // Number 0-9
+    else if (code == 42 || code == 8 || code == 46 || code == 9 || code == 47 || code == 88 || code == 120) 
+		return true; // 42 = *, 8 = back, 46 = del, 9 = tab, 47 = slash, 88 = x, 120 = X
+    else if (code >= 37 && code <= 40) 
+		return true;  // left, up, right, down
+    else 
+		return false;
+}
+
+
+function nextNode(obj, idx) {
+	//alert('next node');
+	//set_current_line(idx);
+//	document.getElementById('curr_pos').innerHTML = idx;
+	var idName = obj.id;
+	var arr = idName.split('_');
+	
+	var val = obj.value;
+	var numlength = val.length;
+	
+	var idx2name=new Array(); 
+	idx2name[0]="numberbet";       
+	idx2name[1]="stakeup";
+	idx2name[2]="stakedown";
+	idx2name[3]="staketode";
+
+	
+	switch(arr[0])
+	{
+		case idx2name[0]:
+			if( val == '')
+			{
+				// ต้องมีเลขเสมอ
+				alert('กรุณาใส่ตัวเลข');
+				return false;
+			}
+			else
+			{
+				var idxof = val.indexOf('*');
+				if( idxof != -1 )
+				{
+					// ต้องเป็นเลข1หลักขึ้นไปและ * ต้องอยู่หลังตัวเลขเสมอ
+					if(numlength <= 1 ||  idxof != numlength-1 )
+					{
+						alert('ตัวเลขไม่ถูกต้อง ! กรุณากรอกตัวเลข 2-3หลัก แล้วตามด้วย * เท่านั้น เช่น 12* , 123*');
+						obj.select();
+						return false;																
+					}
+
+				}
+				else if( numlength > 3  )
+				{
+					// 4 หลักไม่มี *
+					alert('ตัวเลขไม่ถูกต้อง ! ต้องใส่เลข 1-3 หลักเท่านั้น');
+					return false;										
+				}
+
+			}
+			arrNum = [];
+			betnum = val;
+			if( betnum.indexOf('*') != -1 )
+			{
+				str = betnum.replace('*','');
+				
+				arrNum = tode_number(str);
+			}
+			else
+			{
+				arrNum[betnum] = betnum;
+			}
+				
+			lastval0 = val;						
+			document.getElementById(idx2name[1]+'_'+idx).focus();
+			document.getElementById(idx2name[1]+'_'+idx).select();
+		break;
+		case idx2name[1]:
+			var betnum = document.getElementById(idx2name[0]+'_'+idx).value;
+			
+			if( betnum == '' )
+			{
+				alert('กรุณาใส่ตัวเลขก่อน !');
+				document.getElementById(idx2name[0]+'_'+idx).focus();
+				document.getElementById(idx2name[0]+'_'+idx).select();
+				return false;															
+			}
+			
+			if( val == '' )
+			{
+				inputval = lastval1;	
+			}
+			else
+			{
+				inputval = val;	
+				lastval1 = val;
+			}
+				
+			//ตรวจว่าเลขมี * หรือเปล่า			
+			var idxof = inputval.indexOf('*');
+			var i = idx-1;
+			if( idxof != -1 )
+			{
+				for( j in arrNum)
+				{
+					i++;	
+					// ถ้ามี * ให้แบ่ง
+					var arr = inputval.split('*');
+					
+					//lastval1 = arr[0];
+					document.getElementById(idx2name[1]+'_'+i).value = arr[0];
+					
+					if( j.length <= 2 )
+					{
+						//lastval2 = arr[1];
+						document.getElementById(idx2name[2]+'_'+i).value = arr[1];
+					}
+					else if( j.length == 3 )
+					{
+						//lastval3 = arr[1];
+						document.getElementById(idx2name[3]+'_'+i).value = arr[1];
+					}
+					
+					//บรรทัดถัดไป					
+					document.getElementById(idx2name[0]+'_'+i).value = j;					
+				}
+				document.getElementById(idx2name[0]+'_'+(i+1) ).focus();
+				document.getElementById(idx2name[0]+'_'+(i+1) ).select();
+				
+				
+			}
+			else
+			{
+				//ถ้าว่าง ให้ใส่ตัวเดิม
+				if( val == '' )
+				{
+					//document.getElementById(idx2name[1]+'_'+idx).value = lastval1;
+				}
+
+				document.getElementById(idx2name[2]+'_'+idx).focus();
+				document.getElementById(idx2name[2]+'_'+idx).select();
+			}			
+			
+		break;
+		case idx2name[2]:	
+			//ตรวจว่าเลขมี * หรือเปล่า
+			if( val.indexOf('*') != -1 )
+			{
+				alert('ช่องนี้ไม่สามารถใส่ * ได้ !');
+				document.getElementById(idx2name[2]+'_'+idx).focus();
+				document.getElementById(idx2name[2]+'_'+idx).select();
+				return false;	
+			}
+		
+			
+			var betnum = document.getElementById(idx2name[0]+'_'+idx).value;
+			
+			if( betnum == '' )
+			{
+				alert('กรุณาใส่ตัวเลขก่อน !');
+				document.getElementById(idx2name[2]+'_'+idx).value = '';
+				document.getElementById(idx2name[0]+'_'+idx).focus();
+				document.getElementById(idx2name[0]+'_'+idx).select();
+				return false;															
+			}
+			
+			if( val == '' )
+			{
+				inputval = lastval2;	
+			}
+			else
+			{
+				inputval = val;	
+				lastval2 = val;
+			}
+				
+			//ตรวจว่าเลขมี * หรือเปล่า
+			
+			var idxof = inputval.indexOf('*');
+			var i = idx-1;
+
+			//ถ้าว่าง ให้ใส่ตัวเดิม
+			if( val == '' )
+			{
+				//document.getElementById(idx2name[2]+'_'+idx).value = lastval2;
+			}
+
+			document.getElementById(idx2name[3]+'_'+idx).focus();
+			document.getElementById(idx2name[3]+'_'+idx).select();
+		break;
+		case idx2name[3]:
+			//ตรวจว่าเลขมี * หรือเปล่า
+			if( val.indexOf('*') != -1 )
+			{
+				alert('ช่องนี้ไม่สามารถใส่ * ได้ !');
+				document.getElementById(idx2name[3]+'_'+idx).focus();
+				document.getElementById(idx2name[3]+'_'+idx).select();
+				return false;	
+			}
+			
+			var betnum = document.getElementById(idx2name[0]+'_'+idx).value;
+			
+			if( betnum == '' )
+			{
+				alert('กรุณาใส่ตัวเลขก่อน !');
+				document.getElementById(idx2name[3]+'_'+idx).value = '';
+				document.getElementById(idx2name[0]+'_'+idx).focus();
+				document.getElementById(idx2name[0]+'_'+idx).select();
+				return false;															
+			}
+			
+			if( val == '' )
+			{
+				inputval = lastval3;	
+			}
+			else
+			{
+				inputval = val;	
+				lastval3 = val;
+			}
+				
+			
+			var idxof = betnum.indexOf('*');
+			var i = idx-1;
+			if( idxof != -1 )
+			{
+				for( j in arrNum)
+				{
+					i++;	
+					
+					//lastval3 = arr[0];
+					document.getElementById(idx2name[0]+'_'+i).value = j;					
+					document.getElementById(idx2name[1]+'_'+i).value = lastval1;
+					document.getElementById(idx2name[2]+'_'+i).value = lastval2;
+					document.getElementById(idx2name[3]+'_'+i).value = lastval3;
+					
+				}
+				//บรรทัดถัดไป					
+				document.getElementById(idx2name[0]+'_'+(i+1) ).focus();
+				document.getElementById(idx2name[0]+'_'+(i+1) ).select();
+				
+				
+			}
+			else
+			{
+				//ถ้าว่าง ให้ใส่ตัวเดิม
+				if( val == '' )
+				{
+					//document.getElementById(idx2name[3]+'_'+idx).value = lastval3;
+				}
+
+				document.getElementById(idx2name[0]+'_'+(idx+1) ).focus();
+				document.getElementById(idx2name[0]+'_'+(idx+1) ).select();
+			}			
+		break;
+		default:
+			alert('Error: No next node !');			
+	}
+}
+
+function tode_number(str)
+{
+	nums = [];
+	na = str.split('');
+	if( str.length == 1 )
+	{
+		n0 = str.toString();
+		nums[n0+'0'] = n0+'0';
+		nums[n0+'1'] = n0+'1';
+		nums[n0+'2'] = n0+'2';
+		nums[n0+'3'] = n0+'3';
+		nums[n0+'4'] = n0+'4';
+		nums[n0+'5'] = n0+'5';
+		nums[n0+'6'] = n0+'6';
+		nums[n0+'7'] = n0+'7';
+		nums[n0+'8'] = n0+'8';
+		nums[n0+'9'] = n0+'9';
+		nums['0'+n0] = '0'+n0;
+		nums['1'+n0] = '1'+n0;
+		nums['2'+n0] = '2'+n0;
+		nums['3'+n0] = '3'+n0;
+		nums['4'+n0] = '4'+n0;
+		nums['5'+n0] = '5'+n0;
+		nums['6'+n0] = '6'+n0;
+		nums['7'+n0] = '7'+n0;
+		nums['8'+n0] = '8'+n0;
+		nums['9'+n0] = '9'+n0;
+	}
+	else if( str.length == 2 )
+	{			
+		n0 = (na[0]).toString();
+		n1 = (na[1]).toString();
+		
+		nums[n0+n1] = n0+n1;
+		nums[n1+n0] = n1+n0;
+	}
+	else if(str.length == 3 )
+	{
+		n0 = (na[0]).toString();
+		n1 = (na[1]).toString();
+		n2 = (na[2]).toString();
+
+		nums[n0+n1+n2] = n0+n1+n2;
+		nums[n0+n2+n1] = n0+n2+n1;
+		nums[n1+n0+n2] = n1+n0+n2;
+		nums[n1+n2+n0] = n1+n2+n0;
+		nums[n2+n0+n1] = n2+n0+n1;
+		nums[n2+n1+n0] = n2+n1+n0;					
+	}
+	else
+	{
+		return false;	
+	}
+	
+	return nums;
+	
+}
+
+function set_current_line(idx)
+{
+	var lastrow = $("#bet-table tbody tr").length;
+	current_line = idx;
+	for(i=0;i<=lastrow-1; i++)
+	{
+		if( i == idx )	
+		{
+			document.getElementById('td_'+i).className = "select_line";
+			add_row();
+		}
+		else
+		{
+			document.getElementById('td_'+i).className = "";
+		}
+	}
+}
+
+function tode_num()
+{
+	str = document.getElementById('numberbet_'+current_line).value;
+	arrNum = tode_number(str);
+	i = current_line;
+	for( j in arrNum)
+	{
+		//บรรทัดถัดไป					
+		document.getElementById('numberbet_'+i).value = j;					
+		i++;						
+	}
+	/*
+	document.getElementById('numberbet_'+i ).focus();
+	document.getElementById('numberbet_'+i ).select();		
+	*/
+	copy_stake('stakeup');
+	copy_stake('stakedown');
+	copy_stake('staketode');
+	
+	return false;
+}
+
+function copy_stake(prefix)
+{
+	var lastrow = $("#bet-table tbody tr").length;
+	str = document.getElementById(prefix+'_1').value;
+	lastline = 1;
+	for(i=1; i<= lastrow-1; i++)
+	{
+		if( document.getElementById('numberbet_'+i).value != '' )
+		{
+			document.getElementById(prefix+'_'+i).value = str;
+			lastline = i;
+		}			
+		
+	}
+
+	document.getElementById('numberbet_'+(1+lastline) ).focus();
+	document.getElementById('numberbet_'+(1+lastline) ).select();			
+	return false;
+}
+
+</script>
+
+<script>
+  $(function() {
+    $( "#radio" ).buttonset();
+  });
+  </script>
+
+<script type="text/javascript" charset="UTF-8">
+/* <![CDATA[ */
+try { if (undefined == xajax.config) xajax.config = {}; } catch (e) { xajax = {}; xajax.config = {}; };
+xajax.config.requestURI = "http://sbo991.com/type2.php";
+xajax.config.statusMessages = false;
+xajax.config.waitCursor = true;
+xajax.config.version = "xajax 0.5";
+xajax.config.legacy = false;
+xajax.config.defaultMode = "asynchronous";
+xajax.config.defaultMethod = "POST";
+/* ]]> */
+</script>
+<script type="text/javascript" src="./xajax_core.js.download" charset="UTF-8"></script>
+<script type="text/javascript" charset="UTF-8">
+/* <![CDATA[ */
+window.setTimeout(
+ function() {
+  var scriptExists = false;
+  try { if (xajax.isLoaded) scriptExists = true; }
+  catch (e) {}
+  if (!scriptExists) {
+   alert("Error: the xajax Javascript component could not be included. Perhaps the URL is incorrect?\nURL: ./xajax/xajax_js/xajax_core.js");
+  }
+ }, 2000);
+/* ]]> */
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+/* <![CDATA[ */
+xajax_doPlaceBet = function() { return xajax.request( { xjxfun: 'doPlaceBet' }, { parameters: arguments } ); };
+xajax_getAvailableBet = function() { return xajax.request( { xjxfun: 'getAvailableBet' }, { parameters: arguments } ); };
+xajax_getAvailableBet19 = function() { return xajax.request( { xjxfun: 'getAvailableBet19' }, { parameters: arguments } ); };
+/* ]]> */
+</script>
+</head>
+<body style="">
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tbody>
+  <tr>
+    <td valign="top">
+      <table cellspacing="0" cellpadding="0" width="790" border="0">
+        <tbody>
+        <tr>
+          <td valign="top" colspan="3">
+            <table cellspacing="0" cellpadding="0" width="100%" border="0">
+              <tbody>
+              <tr>
+                <td><img height="35" src="./right01-3.jpg" width="30"></td>
+                <td class="text12_white" nowrap="" width="130" background="./right02.jpg">แทงแบบใหม่</td>
+                <td><img height="35" src="./right03.jpg" width="32"></td>
+                <td valign="center" width="100%" background="./right04-2.jpg">
+                  <table height="35" cellspacing="0" cellpadding="0" width="100%" border="0">
+                    <tbody>
+                    <tr style="BACKGROUND-IMAGE: url(images/right04.jpg)">
+                      <td class="btext11" id="cNew" width="10%" background="./right04.jpg"><img height="11" hspace="5" src="./news.gif" width="33"></td><!--onclick="cNew('../message/message.php','acc');"-->
+                      <td class="text12_black" width="100%" background="./right04.jpg">
+                        <marquee style="cursor:pointer; width:530px;" scrollamount="2" scrolldelay="50" class="description" onmouseover="this.stop();" onmouseout="this.start();" onclick="window.open(&#39;misc_news.php&#39;,&#39;_msg&#39;,&#39;width=750,height=600,resizable=1&#39;);"><span id="txtMarquee"><font color="blue" size="3"> **เปิดให้บริการวันที่ 9/10/25560 ***ทางบริษัทเปิดให้บริการล่วงหน้าก่อนหวยออก7วัน ***ชุดล่าง(2ตัวล่าง,3ตัวล่าง,3ตัวหน้า,วิ่งล่าง) ปิดรับวันหวยออกเวลา 15.25 ชุดบน(3ตัวบน,2ตัวบน,3ตัวโต้ด,วิ่งบน) ปิดรับวันหวยออกเวลา 15.40น. ขอบคุณค่ะ ***</font></span></marquee></td>
+                        </tr>
+                        </tbody>
+                       </table></td>
+                <td width="14" align="right" background="./right04.jpg">&nbsp;</td>
+              </tr>
+              <tr>
+                <td colspan="5" valign="center" background="./right04-2.jpg">
+                <div id="radio" class="ui-buttonset">
+    <input type="radio" id="radio1" name="radio" onclick="location.href=&#39;type1.php&#39;;" class="ui-helper-hidden-accessible"><label for="radio1" style="font-size:12px !important;" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left" role="button" aria-disabled="false"><span class="ui-button-text">แทงแบบเก่า</span></label>
+    <input type="radio" id="radio2" name="radio" onclick="location.href=&#39;type2.php&#39;;" checked="checked" class="ui-helper-hidden-accessible"><label for="radio2" style="font-size:12px !important;" class="ui-state-active ui-button ui-widget ui-state-default ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">แทงแบบใหม่</span></label>
+    <input type="radio" id="radio3" name="radio" onclick="location.href=&#39;type3.php&#39;;" class="ui-helper-hidden-accessible"><label for="radio3" style="font-size:12px !important;" class="ui-button ui-widget ui-state-default ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">3ตัวบนx3ตัวโต้ด</span></label>
+    <input type="radio" id="radio4" name="radio" onclick="location.href=&#39;type4.php&#39;;" class="ui-helper-hidden-accessible"><label for="radio4" style="font-size:12px !important;" class="ui-button ui-widget ui-state-default ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">2ตัวบนx2ตัวล่าง</span></label>
+    <input type="radio" id="radio5" name="radio" onclick="location.href=&#39;type5.php&#39;;" class="ui-helper-hidden-accessible"><label for="radio5" style="font-size:12px !important;" class="ui-button ui-widget ui-state-default ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">3ตัวหน้าx3ตัวล่าง</span></label>
+    <input type="radio" id="radio6" name="radio" onclick="location.href=&#39;type6.php&#39;;" class="ui-helper-hidden-accessible"><label for="radio6" style="font-size:12px !important;" class="ui-button ui-widget ui-state-default ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">2ตัว19กลับ</span></label>
+    <input type="radio" id="radio7" name="radio" onclick="location.href=&#39;type7.php&#39;;" class="ui-helper-hidden-accessible"><label for="radio7" style="font-size:12px !important;" class="ui-button ui-widget ui-state-default ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">เลขวิ่ง</span></label>
+    <input type="radio" id="radio8" name="radio" onclick="location.href=&#39;type10.php&#39;;" class="ui-helper-hidden-accessible"><label for="radio8" style="font-size:12px !important;" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right" role="button" aria-disabled="false"><span class="ui-button-text">คู่-คี่/สูง-ต่ำ</span></label>
+    
+ </div>
+ <div style="font-size:12px; color:#F00; background-color:#FF0;">
+  *** สำคัญมาก !! การคัดลอกยอดจะไม่แจ้งจำนวนที่รับ กรุณาตรวจสอบรายการแทงทุกครั้งหลังจากยืนยันการแทง  บริษัทฯจะคิดเฉพาะรายการที่เข้าเว๊บเท่านั้น***
+  </div>                </td>
+              </tr>
+              </tbody>
+            </table></td></tr>
+        <tr>
+          <td width="10" background="./right07.jpg">&nbsp;</td>
+          <td valign="top" width="100%" bgcolor="#f9fbfd">
+            <table cellspacing="0" cellpadding="0" width="100%" border="0">
+              <tbody>
+              <tr>
+                <td width="42%" valign="top">
+                  <table cellspacing="1" cellpadding="0" width="99%" bgcolor="#efd0c1">
+                    <tbody>
+                      <tr>
+                        <td valign="top">
+
+<form id="form1" method="post">                        
+                          <table cellspacing="1" cellpadding="0" width="100%" bgcolor="#ffffff" border="0" id="bet-table">
+                            <thead>
+                              <tr class="text12_black_bold" style="BACKGROUND-IMAGE: url(images/right_bg_orange.gif)" height="23">
+                                <th>เลือก<span id="curr_pos"></span></th>
+                                <th><input onclick="disCol(&#39;stakeup&#39;,this.checked);" type="checkbox" checked="" value="checkbox" name="checkbox1"> ตัวบน</th>
+                                <th><input onclick="disCol(&#39;stakedown&#39;,this.checked);" type="checkbox" checked="" value="checkbox" name="checkbox2"> ตัวล่าง</th>
+                                <th><input onclick="disCol(&#39;staketode&#39;,this.checked);" type="checkbox" checked="" value="checkbox" name="checkbox3"> ตัวโต๊ด</th></tr>
+                              <tr class="text12_black" bgcolor="#f4d4eb" height="18">
+                                <td colspan="4" align="middle" bgcolor="#FFCCCC"><input id="chkCalc" type="checkbox" value="checkbox" name="chkCalc" checked=""> จำนวนที่รับ&nbsp;</td></tr>
+                              <tr class="text12_black" bgcolor="#f4d4eb" height="18">
+                                <td align="middle" bgcolor="#FFCCCC">&nbsp;<span id="numberbet_disp"></span></td>
+                                <td align="middle" bgcolor="#FFCCCC">&nbsp;<span id="stakeup_disp" class="Positive"></span></td>
+                                <td align="middle" bgcolor="#FFCCCC">&nbsp;<span id="stakedown_disp" class="Positive"></span></td>
+                                <td align="middle" bgcolor="#FFCCCC">&nbsp;<span id="staketode_disp" class="Positive"></span></td></tr>
+                              <tr class="text12_black_bold" style="BACKGROUND-IMAGE: url(images/right_bg_orange.gif)" align="middle" height="20">
+                                <td bgcolor="#f9ede5">หมายเลข<br><span class="copynum">(<a href="http://sbo991.com/type2.php#" id="num_copy" onclick="return tode_num();">กลับเลข</a>)</span></td>
+                                <td bgcolor="#f9ede5">ตัวบน<br><span class="copynum">(<a href="http://sbo991.com/type2.php#" id="up_copy" onclick="return copy_stake(&#39;stakeup&#39;);">คัดลอกยอด</a>)</span></td>
+                                <td bgcolor="#f9ede5">ตัวล่าง<br><span class="copynum">(<a href="http://sbo991.com/type2.php#" id="down_copy" onclick="return copy_stake(&#39;stakedown&#39;);">คัดลอกยอด</a>)</span></td>
+                                <td bgcolor="#f9ede5">ตัวโต๊ด<br><span class="copynum">(<a href="http://sbo991.com/type2.php#" id="tode_copy" onclick="return copy_stake(&#39;staketode&#39;);">คัดลอกยอด</a>)</span></td></tr>
+                                </thead>
+                                <tbody>
+                                                            
+                              <tr id="row-0" style="display:none;">
+                                <td valign="top" align="middle" bgcolor="#CCFFFF" id="td_0" class=""><span style="white-space:nowrap;">
+                                  <input name="numberbet_0" type="text" class="text" id="numberbet_0" tabindex="9" onblur="getAvailableBet(this);" onkeypress="return keyPress(this, 0, event)" value="" size="3" maxlength="3">
+                                  </span></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_0_up" style="white-space:nowrap;">
+                                  <input name="stakeup_0" type="text" id="stakeup_0" tabindex="9" size="5" onkeypress="return keyPress(this, 0, event)" class="text">
+                                  </div></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_0_down" style="white-space:nowrap;">
+                                  <input name="stakedown_0" type="text" id="stakedown_0" tabindex="9" size="5" onkeypress="return keyPress(this, 0, event)" class="text">
+                                  </div></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_0_tode" style="white-space:nowrap;">
+                                  <input name="staketode_0" type="text" id="staketode_0" tabindex="9" size="5" onkeypress="return keyPress(this, 0, event)" class="text">
+                                  </div></td></tr>
+                                
+                              <tr id="row-1">
+                                <td valign="top" align="middle" bgcolor="#CCFFFF" id="td_1" class=""><span style="white-space:nowrap;">
+                                  <input name="numberbet_1" type="text" class="text" id="numberbet_1" tabindex="9" onblur="getAvailableBet(this);" onkeypress="return keyPress(this, 1, event)" value="" size="3" maxlength="3">
+                                  </span></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_1_up" style="white-space:nowrap;">
+                                  <input name="stakeup_1" type="text" id="stakeup_1" tabindex="9" size="5" onkeypress="return keyPress(this, 1, event)" class="text">
+                                  </div></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_1_down" style="white-space:nowrap;">
+                                  <input name="stakedown_1" type="text" id="stakedown_1" tabindex="9" size="5" onkeypress="return keyPress(this, 1, event)" class="text">
+                                  </div></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_1_tode" style="white-space:nowrap;">
+                                  <input name="staketode_1" type="text" id="staketode_1" tabindex="9" size="5" onkeypress="return keyPress(this, 1, event)" class="text">
+                                  </div></td></tr>
+                                
+                              <tr id="row-2">
+                                <td valign="top" align="middle" bgcolor="#CCFFFF" id="td_2" class=""><span style="white-space:nowrap;">
+                                  <input name="numberbet_2" type="text" class="text" id="numberbet_2" tabindex="9" onblur="getAvailableBet(this);" onkeypress="return keyPress(this, 2, event)" value="" size="3" maxlength="3">
+                                  </span></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_2_up" style="white-space:nowrap;">
+                                  <input name="stakeup_2" type="text" id="stakeup_2" tabindex="9" size="5" onkeypress="return keyPress(this, 2, event)" class="text">
+                                  </div></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_2_down" style="white-space:nowrap;">
+                                  <input name="stakedown_2" type="text" id="stakedown_2" tabindex="9" size="5" onkeypress="return keyPress(this, 2, event)" class="text">
+                                  </div></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_2_tode" style="white-space:nowrap;">
+                                  <input name="staketode_2" type="text" id="staketode_2" tabindex="9" size="5" onkeypress="return keyPress(this, 2, event)" class="text">
+                                  </div></td></tr>
+                                
+                              <tr id="row-3">
+                                <td valign="top" align="middle" bgcolor="#CCFFFF" id="td_3" class=""><span style="white-space:nowrap;">
+                                  <input name="numberbet_3" type="text" class="text" id="numberbet_3" tabindex="9" onblur="getAvailableBet(this);" onkeypress="return keyPress(this, 3, event)" value="" size="3" maxlength="3">
+                                  </span></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_3_up" style="white-space:nowrap;">
+                                  <input name="stakeup_3" type="text" id="stakeup_3" tabindex="9" size="5" onkeypress="return keyPress(this, 3, event)" class="text">
+                                  </div></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_3_down" style="white-space:nowrap;">
+                                  <input name="stakedown_3" type="text" id="stakedown_3" tabindex="9" size="5" onkeypress="return keyPress(this, 3, event)" class="text">
+                                  </div></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_3_tode" style="white-space:nowrap;">
+                                  <input name="staketode_3" type="text" id="staketode_3" tabindex="9" size="5" onkeypress="return keyPress(this, 3, event)" class="text">
+                                  </div></td></tr>
+                                
+                              <tr id="row-4">
+                                <td valign="top" align="middle" bgcolor="#CCFFFF" id="td_4" class=""><span style="white-space:nowrap;">
+                                  <input name="numberbet_4" type="text" class="text" id="numberbet_4" tabindex="9" onblur="getAvailableBet(this);" onkeypress="return keyPress(this, 4, event)" value="" size="3" maxlength="3">
+                                  </span></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_4_up" style="white-space:nowrap;">
+                                  <input name="stakeup_4" type="text" id="stakeup_4" tabindex="9" size="5" onkeypress="return keyPress(this, 4, event)" class="text">
+                                  </div></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_4_down" style="white-space:nowrap;">
+                                  <input name="stakedown_4" type="text" id="stakedown_4" tabindex="9" size="5" onkeypress="return keyPress(this, 4, event)" class="text">
+                                  </div></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_4_tode" style="white-space:nowrap;">
+                                  <input name="staketode_4" type="text" id="staketode_4" tabindex="9" size="5" onkeypress="return keyPress(this, 4, event)" class="text">
+                                  </div></td></tr>
+                                
+                              <tr id="row-5">
+                                <td valign="top" align="middle" bgcolor="#CCFFFF" id="td_5" class=""><span style="white-space:nowrap;">
+                                  <input name="numberbet_5" type="text" class="text" id="numberbet_5" tabindex="9" onblur="getAvailableBet(this);" onkeypress="return keyPress(this, 5, event)" value="" size="3" maxlength="3">
+                                  </span></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_5_up" style="white-space:nowrap;">
+                                  <input name="stakeup_5" type="text" id="stakeup_5" tabindex="9" size="5" onkeypress="return keyPress(this, 5, event)" class="text">
+                                  </div></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_5_down" style="white-space:nowrap;">
+                                  <input name="stakedown_5" type="text" id="stakedown_5" tabindex="9" size="5" onkeypress="return keyPress(this, 5, event)" class="text">
+                                  </div></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_5_tode" style="white-space:nowrap;">
+                                  <input name="staketode_5" type="text" id="staketode_5" tabindex="9" size="5" onkeypress="return keyPress(this, 5, event)" class="text">
+                                  </div></td></tr>
+                                
+                              <tr id="row-6">
+                                <td valign="top" align="middle" bgcolor="#CCFFFF" id="td_6" class=""><span style="white-space:nowrap;">
+                                  <input name="numberbet_6" type="text" class="text" id="numberbet_6" tabindex="9" onblur="getAvailableBet(this);" onkeypress="return keyPress(this, 6, event)" value="" size="3" maxlength="3">
+                                  </span></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_6_up" style="white-space:nowrap;">
+                                  <input name="stakeup_6" type="text" id="stakeup_6" tabindex="9" size="5" onkeypress="return keyPress(this, 6, event)" class="text">
+                                  </div></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_6_down" style="white-space:nowrap;">
+                                  <input name="stakedown_6" type="text" id="stakedown_6" tabindex="9" size="5" onkeypress="return keyPress(this, 6, event)" class="text">
+                                  </div></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_6_tode" style="white-space:nowrap;">
+                                  <input name="staketode_6" type="text" id="staketode_6" tabindex="9" size="5" onkeypress="return keyPress(this, 6, event)" class="text">
+                                  </div></td></tr>
+                                
+                              <tr id="row-7">
+                                <td valign="top" align="middle" bgcolor="#CCFFFF" id="td_7" class=""><span style="white-space:nowrap;">
+                                  <input name="numberbet_7" type="text" class="text" id="numberbet_7" tabindex="9" onblur="getAvailableBet(this);" onkeypress="return keyPress(this, 7, event)" value="" size="3" maxlength="3">
+                                  </span></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_7_up" style="white-space:nowrap;">
+                                  <input name="stakeup_7" type="text" id="stakeup_7" tabindex="9" size="5" onkeypress="return keyPress(this, 7, event)" class="text">
+                                  </div></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_7_down" style="white-space:nowrap;">
+                                  <input name="stakedown_7" type="text" id="stakedown_7" tabindex="9" size="5" onkeypress="return keyPress(this, 7, event)" class="text">
+                                  </div></td>
+                                <td valign="top" align="right" bgcolor="#CCFFFF"><div id="r_7_tode" style="white-space:nowrap;">
+                                  <input name="staketode_7" type="text" id="staketode_7" tabindex="9" size="5" onkeypress="return keyPress(this, 7, event)" class="text">
+                                  </div></td></tr>
+                              
+                              </tbody>
+				</table>
+</form>
+				</td></tr></tbody></table>
+                  <table cellspacing="1" cellpadding="0" width="99%">
+                    <tbody>
+                      <tr>
+                        <td valign="top">
+                          <table cellspacing="1" cellpadding="0" width="100%" bgcolor="#ffffff" border="0">
+                            <tbody>                        
+                              <tr align="middle" height="18">
+                                <td bgcolor="#B0EFFF" colspan="3">  <div style="width:100%; text-align:center;">
+                                  <span style="white-space:nowrap;">
+                                    <input name="username" type="hidden" id="username" tabindex="10" value="Z0POR" size="5">
+                                    <input type="hidden" name="memberid" id="memberid" value="63027">
+                                    </span>
+                                    <span id="betting_btn">
+                                  <input type="button" id="btnSave" value=" แทง " tabindex="23" onclick=" clicksubmit();"> 
+                                  <input type="button" id="resetBtn" value="ยกเลิก" onclick="" tabindex="24">
+                                  <input type="hidden" id="hdCmd" name="hdCmd" value="0">
+                                  </span>
+                                  <span id="finish_btn" style="display:none;">
+                                  <input type="button" id="finishBtn" value="เสร็จสิ้น &amp; เริ่มแทงใหม่" onclick="" tabindex="">
+                                  </span>
+                                </div>  </td></tr>                          
+                              </tbody>
+                            <tbody></tbody>
+                            <tbody></tbody>
+                          <tbody></tbody></table>
+                          <div id="unbet">
+                          <table cellspacing="1" cellpadding="0" width="100%" bgcolor="#ffffff" border="0" id="unbet-table">
+                        	<caption><span style="color:#FF0000">เลขที่แทงไม่เข้า</span></caption>
+                            <thead>
+                              <tr class="text12_black_bold" style="BACKGROUND-IMAGE: url(images/right_bg_orange.gif)" align="middle" height="20">
+                                <td bgcolor="#f9ede5">หมายเลข<br></td>
+                                <td bgcolor="#f9ede5">ตัวบน<br></td>
+                                <td bgcolor="#f9ede5">ตัวล่าง<br></td>
+                                <td bgcolor="#f9ede5">ตัวโต๊ด<br></td>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              </tbody>
+                          </table>
+                          </div>
+                          </td></tr></tbody></table></td>
+                <td width="58%" valign="top">
+                <div style="float:right;font-size:12px;">[<a href="http://sbo991.com/type2.php#" id="import_toggle">รายการแทง/นำเข้าข้อมู</a>]</div>
+                <div id="iframe-section">
+                	<iframe id="betListArea" name="betListArea" src="./betlist_mini.html" style="width:460px;height:580px" frameborder="0" scrolling="auto"></iframe>
+                </div>
+                <div id="import-section" style="display: none; text-align:center;">
+					<form id="import-form" target="_blank" method="post" action="http://sbo991.com/import-ajax.php">
+						<textarea rows="20" name="input_import" style="width:450px;"></textarea><br>
+						<input id="import_btn" type="button" class="submit" value=" นำเข้าข้อมูล ">
+						<input id="" type="button" class="submit clear_import" value=" ล้างข้อมูล ">
+                        <div style="text-align:center; margin-top:10px;">
+                        	<a href="http://sbo991.com/helps/index.php" target="_blank">วิธีใช้งาน</a>
+                        </div>
+					</form>
+                </div>
+                </td></tr>
+              </tbody></table></td>
+          <td width="10" background="./right08.jpg"><img height="1" width="10"> </td>
+        </tr>
+        <tr>
+          <td height="7" colspan="3" valign="top">&nbsp;</td>
+  </tr></tbody></table></td></tr></tbody></table>
+  
+<script>
+$(function(){ 	
+
+	$("#finishBtn, #resetBtn").click(function(){ 
+		var lastrow = $("#bet-table tbody tr").length;	
+		for(i=1; i<=lastrow-1;i++)
+		{
+			$("#row-"+i).remove();	
+		}
+		$("#bet-table tbody tr input").attr('disabled',false);
+		add_row();
+		
+		$("#betting_btn").show();
+		$("#finish_btn").hide();
+		
+		//remove unbet table
+		var lastrow = $("#unbet-table tbody tr").length;	
+		for(i=1; i<=lastrow;i++)
+		{
+			$("#unbet-row-"+i).remove();	
+		}	
+		
+		set_current_line(1);
+		$("#numberbet_1").focus();	
+		//betListArea.location.reload();
+		
+	});
+
+	$("#import_toggle").click(function(){
+		$("#iframe-section").toggle();
+		$("#import-section").toggle();
+	});
+
+	$("#import_btn").click(function(){
+		$.ajax({
+		  method: "POST",
+		  url: "import-ajax.php",
+		  data: $('#import-form').serialize(),
+		})
+		  .done(function( rows ) {
+		  	for( i=0;i<rows.length; i++)
+		  	{
+		  		add_more_row(1);
+		  		lineid = i+1;
+		  		$("#numberbet_"+lineid).val(get_or_blank(rows[i][0]));
+		  		$("#stakeup_"+lineid).val(get_or_blank(rows[i][1]));
+		  		$("#stakedown_"+lineid).val(get_or_blank(rows[i][2]));
+		  		$("#staketode_"+lineid).val(get_or_blank(rows[i][3]));
+		  		console.log(rows[i]);
+
+		  	}
+		  });		
+
+	});
+
+	$(".clear_import").click(function(){
+		$("#input_import").val('');
+	});
+});
+
+function get_or_blank(val)
+{
+	if( typeof(val) != "undefined" )	
+	{
+		return val;
+	}
+
+	return '';
+}
+
+function add_row()
+{
+
+	//get all row
+	var lastrow = $("#bet-table tbody tr").length;
+	//get current row
+
+	var selected_row_id = $(".select_line").parent().attr('id');
+
+	var selected_row_no = (typeof(selected_row_id) != "undefined" && selected_row_id !== null) ? parseInt(selected_row_id.replace("row-","")) : 1;
+	
+	//count add rows
+	addrow = 7-(lastrow-selected_row_no);
+
+
+	add_more_row(addrow);
+	//loop addrow
+
+	//append row	
+}
+
+function add_more_row(addrow)
+{
+	var lastrow = $("#bet-table tbody tr").length;
+	//loop addrow
+	for(row = lastrow; row<(lastrow+addrow); row++)
+	{
+		addrow_html = '<tr id="row-'+row+'">'+(get_row_template()).replace(/0/g,row)+'</tr>';
+		$("#bet-table tbody").append(addrow_html);	
+	}		
+}
+
+function get_row_template()
+{
+	//get row1 html
+	var row1_html = $("#row-0").html();
+	return row1_html.replace("select_line","");	
+}
+
+function show_result(json)
+{
+    obj = JSON && JSON.parse(json) || $.parseJSON(json);	
+
+	var row_template = '';
+	if( ObjectLength(obj) > 0 )
+	{
+		var idx = 0;
+		for (var key in obj) {
+			var col = obj[key];
+			
+			is_up = ( col.hasOwnProperty('up') && parseInt(col.up) > 0);
+			is_down = ( col.hasOwnProperty('down') && parseInt(col.down) > 0);
+			is_tode = ( col.hasOwnProperty('tode') && parseInt(col.tode) > 0);
+			
+			var row_idx = key.replace("r_","");
+			if( col.hasOwnProperty('up') )
+			{
+				$('#'+key+'_up').addClass( is_up ? "rejected" : "accepted");
+			}
+			
+			if( col.hasOwnProperty('down') )
+			{
+				$('#'+key+'_down').addClass( is_down ? "rejected" : "accepted");
+			}			
+			
+			if( col.hasOwnProperty('tode') )
+			{
+				$('#'+key+'_tode').addClass( is_tode ? "rejected" : "accepted");
+			}			
+			
+			if( is_up ||  is_down || is_tode )
+			{
+				idx++;
+				row_template += '<tr class="text12_black_bold" id="unbet-row-'+idx+'">';
+				row_template += '<td valign="top" align="middle" bgcolor="#dddddd" id="" class="">'+col.number+'</td>';
+				row_template += '<td valign="top" align="middle" bgcolor="#dddddd" id="" class=""><span style="color:#FF0000">'+(col.hasOwnProperty('up') ? col.up : '-')+'</span></td>';
+				row_template += '<td valign="top" align="middle" bgcolor="#dddddd" id="" class=""><span style="color:#FF0000">'+(col.hasOwnProperty('down') ? col.down : '-')+'</span></td>';
+				row_template += '<td valign="top" align="middle" bgcolor="#dddddd" id="" class=""><span style="color:#FF0000">'+(col.hasOwnProperty('tode') ? col.tode : '-')+'</span></td>';			
+				row_template += '</tr>';
+			}
+		}
+		
+		$("#unbet-table tbody").append(row_template);
+	}
+	
+	$("#bet-table tbody tr input").attr('disabled',true);
+	$("#betting_btn").hide();
+	$("#finish_btn").show();
+
+	betListArea.updateBetList();
+	parent.parent.leftFrame.updateCloseBet(1);	
+
+}
+
+function ObjectLength( object ) {
+    var length = 0;
+    for( var key in object ) {
+        if( object.hasOwnProperty(key) ) {
+            ++length;
+        }
+    }
+    return length;
+};
+</script>
+
+</body></html>

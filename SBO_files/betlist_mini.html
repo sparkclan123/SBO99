@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0034)http://sbo991.com/betlist_mini.php -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Balance</title>
+<link href="./page.css" rel="stylesheet" type="text/css">
+
+<style type="text/css">
+.TableA tbody td  {
+	font-weight:normal;
+	white-space:nowrap;
+	text-align:center;
+}
+
+.bold {
+	font-weight:bold;
+}
+
+body {
+	background-image: url(images/bgline.jpg);
+	background-repeat: repeat-x;
+}
+
+.lastestBet{
+	background-color:#CCFFFF;
+}
+
+.normalBet{
+	background-color:#FFFFFF;
+}
+</style>
+<script language="javascript" type="text/javascript">
+
+
+function updateTbl(txt)
+{
+	//document.getElementById('txtMarquee').innerHTML = txt;
+	alert('table update !!');
+}
+
+function s(txt)
+{
+	var t1 = document.getElementById('t1').innerHTML;
+	var t2 = document.getElementById('t2').innerHTML;
+	var t3 = document.getElementById('t3').innerHTML;
+	var itm=txt.split("@@");
+	
+	var sb = ['<table rules="all" id="dgReport" width="100%" border="0" cellspacing="0" cellpadding="2" class="TableA">',t1];
+	
+	
+	txt2 = itm[0].split("|");
+	strT2 = t2;
+	strT2 = strT2.replace('{countNum}',txt2[0]);
+	strT2 = strT2.replace('{amount}',txt2[1]);
+	strT2 = strT2.replace('{discount}',txt2[2]);
+	sb.push(strT2);
+	
+	for(var i=1; i < (itm.length - 1); i++)
+	{
+		strT3 = t3;
+		txt3 = itm[i].split("|");
+		
+		if( txt3[0] == '1' )
+		{
+			strT3 = strT3.replace("{trClass}","lastestBet");
+			strT3 = strT3.replace("{trColor}","#CCFFFF");
+		}
+		else
+		{
+	//		strT3 = strT3.replace(/{trColor}/g,"normalBet");
+			strT3 = strT3.replace("{trClass}","normalBet");
+			strT3 = strT3.replace("{trColor}","#FFFFFF");
+			
+		}
+
+		strT3 = strT3.replace("{xx}",i);
+		strT3 = strT3.replace("{betTime}",txt3[1]);
+		strT3 = strT3.replace("{lotName}",txt3[2]);		
+		strT3 = strT3.replace("{numberBet}",txt3[3]);
+		strT3 = strT3.replace("{stake_bet}",txt3[4]);
+		strT3 = strT3.replace("{comm_bet}",txt3[5]);
+		strT3 = strT3.replace("{is_cancel}",txt3[6]);
+		
+		//
+		sb.push(strT3);
+		
+	}
+	/*
+	  <td>{betTime}</td>
+  <td>{xx}++{lotName}</td>
+  <td style="font-weight:bold;color:#900; background:#FFC;">{numberBet}</td>
+  <td style="font-weight:bold;">{stake_bet}</td>
+  <td style="font-weight:bold;">{comm_bet}</td>
+  <td>{is_cancel}</td>
+	*/
+	sb.push("</table>");
+	document.getElementById('mainData').innerHTML = sb.join('');
+}
+
+function updateBetList()
+{
+	//betListArea.updateTbl(val);
+	document.form2.submit();
+	
+}
+</script>
+</head>
+
+<body onload="updateBetList();">
+<div id="mainData"><table rules="all" id="dgReport" width="100%" border="0" cellspacing="0" cellpadding="2" class="TableA">
+  <thead>
+  <tr>
+    <th>เวลาแทง</th>
+    <th>ประเภท</th>
+    <th>หมายเลข</th>
+    <th>จำนวน</th>
+    <th>ส่วนลด</th>
+    <th>สถานะ</th>
+    </tr>
+  </thead>
+
+  <tbody><tr>
+    <td colspan="2" bgcolor="#CCCCCC"><a href="http://sbo991.com/betlist-export.php"><img src="./print_16.gif" width="16" height="16" align="absmiddle" border="0">พิมพ์ใบรายการแทง</a></td>
+    <td bgcolor="#FFCCFF" style="font-weight:bold;color:#009; background:#FFC;">0</td>
+    <td bgcolor="#FFCCFF" style="font-weight:bold;">0</td>
+    <td bgcolor="#FFCCFF" style="font-weight:bold;">0</td>
+    <td bgcolor="#CCCCCC"><a href="http://sbo991.com/betlist_mini.php#" onclick="updateBetList();"><img src="./refresh_icon.gif" alt="refresh" width="17" height="19" border="0"></a></td>
+  </tr>
+</tbody></table></div>
+ 
+<table id="t1" style="display:none;">
+  <thead>
+  <tr>
+    <th>เวลาแทง</th>
+    <th>ประเภท</th>
+    <th>หมายเลข</th>
+    <th>จำนวน</th>
+    <th>ส่วนลด</th>
+    <th>สถานะ</th>
+    </tr>
+  </thead>
+</table>
+
+<table id="t2" style="display:none;">
+  <tbody><tr>
+    <td colspan="2" bgcolor="#CCCCCC"><a href="http://sbo991.com/betlist-export.php"><img src="./print_16.gif" width="16" height="16" align="absmiddle" border="0">พิมพ์ใบรายการแทง</a></td>
+    <td bgcolor="#FFCCFF" style="font-weight:bold;color:#009; background:#FFC;">{countNum}</td>
+    <td bgcolor="#FFCCFF" style="font-weight:bold;">{amount}</td>
+    <td bgcolor="#FFCCFF" style="font-weight:bold;">{discount}</td>
+    <td bgcolor="#CCCCCC"><a href="http://sbo991.com/betlist_mini.php#" onclick="updateBetList();"><img src="./refresh_icon.gif" alt="refresh" width="17" height="19" border="0"></a></td>
+  </tr>
+</tbody></table>
+
+<table id="t3" style="display:none;">
+  <tbody><tr class="{trClass}" onmouseout="this.style.backgroundColor=&#39;{trColor}&#39;;" onmouseover="this.style.backgroundColor=&#39;#FFFFCC&#39;;">
+  <td>{betTime}</td>
+  <td>{lotName}</td>
+  <td style="font-weight:bold;color:#900; background:#FFC;">{numberBet}</td>
+  <td style="font-weight:bold;">{stake_bet}</td>
+  <td style="font-weight:bold;">{comm_bet}</td>
+  <td>{is_cancel}</td>
+  </tr>
+</tbody></table>
+
+  <form method="post" action="http://sbo991.com/refresh_betlist_mini.php" target="postDataFrame" name="form2" id="form2">
+</form>
+<iframe style="width:0px; height:0px;" name="postDataFrame" src="./saved_resource(3).html"></iframe>
+
+</body></html>

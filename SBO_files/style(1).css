@@ -1,5 +1,6 @@
 BODY {
-	MARGIN: 0px
+	MARGIN: 0px;
+	background-color: #000;
 }
 .bbMenu {
 	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Verdana; TEXT-DECORATION: none

@@ -1,12 +1,16 @@
 body {
 	font-family:Tahoma, Geneva, sans-serif;
 	font-size:12px;
+	background: #e6f3ff !important;
+
 /*	
 	background-color: #ff9702;
 	background-image: url(../images/PageBackground.gif);
 	background-repeat: repeat-x;
 */	
 }
+
+
 .TableA{
 	border: 1px solid #000000;
 	background-color: #FFFFFF;

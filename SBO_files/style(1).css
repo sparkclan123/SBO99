@@ -59,3 +59,16 @@ BODY {
 .text11_black {
 	FONT-WEIGHT: normal; FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Verdana; TEXT-DECORATION: none
 }
+
+.leftframetop {
+background: rgba(241,231,103,1);
+background: -moz-linear-gradient(top, rgba(241,231,103,1) 0%, rgba(245,179,46,1) 70%, rgba(219,136,11,1) 100%);
+background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(241,231,103,1)), color-stop(70%, rgba(245,179,46,1)), color-stop(100%, rgba(219,136,11,1)));
+background: -webkit-linear-gradient(top, rgba(241,231,103,1) 0%, rgba(245,179,46,1) 70%, rgba(219,136,11,1) 100%);
+background: -o-linear-gradient(top, rgba(241,231,103,1) 0%, rgba(245,179,46,1) 70%, rgba(219,136,11,1) 100%);
+background: -ms-linear-gradient(top, rgba(241,231,103,1) 0%, rgba(245,179,46,1) 70%, rgba(219,136,11,1) 100%);
+background: linear-gradient(to bottom, rgba(241,231,103,1) 0%, rgba(245,179,46,1) 70%, rgba(219,136,11,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1e767', endColorstr='#db880b', GradientType=0 );
+
+color: #000000 !important;	
+}

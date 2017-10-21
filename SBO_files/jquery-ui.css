@@ -822,18 +822,16 @@ body .ui-tooltip {
 .ui-state-default,
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
-	border: 1px solid #77d5f7;
-	background: rgba(82,159,235,1);
-	background: -moz-linear-gradient(left, rgba(82,159,235,1) 0%, rgba(27,98,163,1) 26%, rgba(27,98,163,1) 50%, rgba(27,98,163,1) 75%, rgba(82,159,235,1) 100%);
-	background: -webkit-gradient(left top, right top, color-stop(0%, rgba(82,159,235,1)), color-stop(26%, rgba(27,98,163,1)), color-stop(50%, rgba(27,98,163,1)), color-stop(75%, rgba(27,98,163,1)), color-stop(100%, rgba(82,159,235,1)));
-	background: -webkit-linear-gradient(left, rgba(82,159,235,1) 0%, rgba(27,98,163,1) 26%, rgba(27,98,163,1) 50%, rgba(27,98,163,1) 75%, rgba(82,159,235,1) 100%);
-	background: -o-linear-gradient(left, rgba(82,159,235,1) 0%, rgba(27,98,163,1) 26%, rgba(27,98,163,1) 50%, rgba(27,98,163,1) 75%, rgba(82,159,235,1) 100%);
-	background: -ms-linear-gradient(left, rgba(82,159,235,1) 0%, rgba(27,98,163,1) 26%, rgba(27,98,163,1) 50%, rgba(27,98,163,1) 75%, rgba(82,159,235,1) 100%);
-	background: linear-gradient(to right, rgba(82,159,235,1) 0%, rgba(27,98,163,1) 26%, rgba(27,98,163,1) 50%, rgba(27,98,163,1) 75%, rgba(82,159,235,1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#529feb', endColorstr='#529feb', GradientType=1 );
-	Copy text	font-weight: normal;
-	color: #ffffff;
-}
+	border: 1px solid #FFC800;
+	background: rgba(241,231,103,1);
+	background: -moz-linear-gradient(top, rgba(241,231,103,1) 0%, rgba(247,167,46,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(241,231,103,1)), color-stop(100%, rgba(247,167,46,1)));
+	background: -webkit-linear-gradient(top, rgba(241,231,103,1) 0%, rgba(247,167,46,1) 100%);
+	background: -o-linear-gradient(top, rgba(241,231,103,1) 0%, rgba(247,167,46,1) 100%);
+	background: -ms-linear-gradient(top, rgba(241,231,103,1) 0%, rgba(247,167,46,1) 100%);
+	background: linear-gradient(to bottom, rgba(241,231,103,1) 0%, rgba(247,167,46,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1e767', endColorstr='#f7a72e', GradientType=0 );	
+	}
 .ui-state-default a,
 .ui-state-default a:link,
 .ui-state-default a:visited {
@@ -846,37 +844,29 @@ body .ui-tooltip {
 .ui-state-focus,
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
-	border: 1px solid #448dae;
-	background: rgba(27,98,163,1);
-	background: -moz-linear-gradient(left, rgba(27,98,163,1) 0%, rgba(82,159,235,1) 26%, rgba(82,159,235,1) 50%, rgba(82,159,235,1) 75%, rgba(27,98,163,1) 100%);
-	background: -webkit-gradient(left top, right top, color-stop(0%, rgba(27,98,163,1)), color-stop(26%, rgba(82,159,235,1)), color-stop(50%, rgba(82,159,235,1)), color-stop(75%, rgba(82,159,235,1)), color-stop(100%, rgba(27,98,163,1)));
-	background: -webkit-linear-gradient(left, rgba(27,98,163,1) 0%, rgba(82,159,235,1) 26%, rgba(82,159,235,1) 50%, rgba(82,159,235,1) 75%, rgba(27,98,163,1) 100%);
-	background: -o-linear-gradient(left, rgba(27,98,163,1) 0%, rgba(82,159,235,1) 26%, rgba(82,159,235,1) 50%, rgba(82,159,235,1) 75%, rgba(27,98,163,1) 100%);
-	background: -ms-linear-gradient(left, rgba(27,98,163,1) 0%, rgba(82,159,235,1) 26%, rgba(82,159,235,1) 50%, rgba(82,159,235,1) 75%, rgba(27,98,163,1) 100%);
-	background: linear-gradient(to right, rgba(27,98,163,1) 0%, rgba(82,159,235,1) 26%, rgba(82,159,235,1) 50%, rgba(82,159,235,1) 75%, rgba(27,98,163,1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1b62a3', endColorstr='#1b62a3', GradientType=1 );	font-weight: normal;
-	color: #026890;
-}
+	border: 1px solid #FFC800;
+	background: rgba(240,177,17,1);
+	background: -moz-linear-gradient(left, rgba(240,177,17,1) 0%, rgba(240,177,17,1) 24%, rgba(237,193,81,1) 40%, rgba(237,193,81,1) 62%, rgba(240,177,17,1) 78%, rgba(247,165,0,1) 100%);
+	background: -webkit-gradient(left top, right top, color-stop(0%, rgba(240,177,17,1)), color-stop(24%, rgba(240,177,17,1)), color-stop(40%, rgba(237,193,81,1)), color-stop(62%, rgba(237,193,81,1)), color-stop(78%, rgba(240,177,17,1)), color-stop(100%, rgba(247,165,0,1)));
+	background: -webkit-linear-gradient(left, rgba(240,177,17,1) 0%, rgba(240,177,17,1) 24%, rgba(237,193,81,1) 40%, rgba(237,193,81,1) 62%, rgba(240,177,17,1) 78%, rgba(247,165,0,1) 100%);
+	background: -o-linear-gradient(left, rgba(240,177,17,1) 0%, rgba(240,177,17,1) 24%, rgba(237,193,81,1) 40%, rgba(237,193,81,1) 62%, rgba(240,177,17,1) 78%, rgba(247,165,0,1) 100%);
+	background: -ms-linear-gradient(left, rgba(240,177,17,1) 0%, rgba(240,177,17,1) 24%, rgba(237,193,81,1) 40%, rgba(237,193,81,1) 62%, rgba(240,177,17,1) 78%, rgba(247,165,0,1) 100%);
+	background: linear-gradient(to right, rgba(240,177,17,1) 0%, rgba(240,177,17,1) 24%, rgba(237,193,81,1) 40%, rgba(237,193,81,1) 62%, rgba(240,177,17,1) 78%, rgba(247,165,0,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0b111', endColorstr='#f7a500', GradientType=1 );	color: #026890;
+	color: #ffffff;
+}	
 .ui-state-hover a,
 .ui-state-hover a:hover,
 .ui-state-hover a:link,
 .ui-state-hover a:visited {
-	color: #026890;
+	color: #000;
 	text-decoration: none;
 }
 .ui-state-active,
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
 	border: 1px solid #acdd4a;
-	background: rgba(145,232,66,1);
-	background: -moz-linear-gradient(left, rgba(145,232,66,1) 0%, rgba(168,212,36,1) 51%, rgba(145,232,66,1) 100%);
-	background: -webkit-gradient(left top, right top, color-stop(0%, rgba(145,232,66,1)), color-stop(51%, rgba(168,212,36,1)), color-stop(100%, rgba(145,232,66,1)));
-	background: -webkit-linear-gradient(left, rgba(145,232,66,1) 0%, rgba(168,212,36,1) 51%, rgba(145,232,66,1) 100%);
-	background: -o-linear-gradient(left, rgba(145,232,66,1) 0%, rgba(168,212,36,1) 51%, rgba(145,232,66,1) 100%);
-	background: -ms-linear-gradient(left, rgba(145,232,66,1) 0%, rgba(168,212,36,1) 51%, rgba(145,232,66,1) 100%);
-	background: linear-gradient(to right, rgba(145,232,66,1) 0%, rgba(168,212,36,1) 51%, rgba(145,232,66,1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#91e842', endColorstr='#91e842', GradientType=1 );	font-weight: normal;
-	color: #ffffff;
+background: #ed9107;
 }
 .ui-state-active a,
 .ui-state-active a:link,
